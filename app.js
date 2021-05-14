@@ -1,8 +1,14 @@
 const Discord = require("discord.js");
 const config = require("./config.json");
 const client = new Discord.Client();
-client.login(config.BOT_TOKEN);
+client.login(config.BOT_TOKEN).then(()=>{
+  console.log(`Preparado y listo para el combate`);
+})
+
 var audios = ["trolaso3.mp3", "trolaso2.mp3", "sincomer.mpeg", "steve.mpeg", "harry.mpeg", "trolaso.mp3", "franco.mp3", "sisisi.mp3", "escuelaHogwars.mp3", "mataoBien.mp3", "aitor1.ogg", "luegocuento.ogg"];
+
+const rutaFicheros=__dirname+"/audios/"
+
 client.on('message', async message => {
   // Voice only works in guilds, if the message does not come from a guild,
   // we ignore it
@@ -12,10 +18,7 @@ client.on('message', async message => {
     // Only try to join the sender's voice channel if they are in one themselves
     if (message.member.voice.channel) {
       const connection = await message.member.voice.channel.join();
-      var audioR = audios[Math.floor(Math.random() * audios.length)]
-audioR
-      connection.play("/home/ubuntu/discord/" + "barri.mp3");
-
+      connection.play(rutaFicheros + "franco.mp3");
     } else {
       message.reply('tienes q estar en el grupo de voz MATAO!');
     }
@@ -26,39 +29,21 @@ audioR
     if (message.member.voice.channel) {
       const connection = await message.member.voice.channel.join();
       var audioR = audios[Math.floor(Math.random() * audios.length)]
-      connection.play("/home/ubuntu/discord/paranda.mp3" );
-
+      connection.play(`${rutaFicheros}paranda.mp3` );
     } else {
       message.reply('tienes q estar en el grupo de voz MATAO!');
     }
-
-
-
   }
  if (message.content === '/estoqes') {
     // Only try to join the sender's voice channel if they are in one themselves
     if (message.member.voice.channel) {
       const connection = await message.member.voice.channel.join();
       var audioR = audios[Math.floor(Math.random() * audios.length)]
-      connection.play("/home/ubuntu/discord/estoqes.mp3" );
-
+      connection.play(`${rutaFicheros}estoqes.mp3`);
     } else {
       message.reply('tienes q estar en el grupo de voz MATAO!');
     }
-
-
-
   }
-
-
-	
-
-
-
-
-
-
-
 });
 
 client.on('voiceStateUpdate', async (oldState, newState) => {
@@ -76,18 +61,14 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
     console.log(elMatao + " ha salido");
     conex = await oldState.channel.join();
     audio = "adiosMatao.mp3";
-    // (await conSal).play('/home/diego/Escritorio/discord/adiosMatao.mp3'); 
   }
   else {
     console.log(elMatao + " ha entrado");
     conex = await newState.member.voice.channel.join();
-    //   console.log(Math.floor(Math.random() * audios.length);
-
     audio = dameAudioDelMatao(elMatao);
-
   }
   if (conex) {
-    conex.play('/home/ubuntu/discord/' + audio);
+    conex.play(rutaFicheros + audio);
   }
 
 
@@ -106,7 +87,7 @@ function dameAudioDelMatao(elMatao) {
   else if (elMatao == "BlazquesitoNomas")
     audio = "blaz2.mp3";
   else if (elMatao == "MINITROZO")
-    audio = "batman.mp3";
+    audio = "belen.mp3";
   else if (elMatao == "Juanjo")
     audio = "jony.mp3";
   else if (elMatao == "chrispichi")
